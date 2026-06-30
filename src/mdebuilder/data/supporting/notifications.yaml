@@ -1,0 +1,19 @@
+name: Microsoft Defender Notifications
+description: >-
+  Allows Defender to surface notifications (threat alerts, status) so end users
+  see detections. Without this users may have to approve notifications manually.
+payloads:
+  - PayloadType: com.apple.notificationsettings
+    PayloadDisplayName: Notifications
+    NotificationSettings:
+      - BundleIdentifier: com.microsoft.wdav.tray
+        NotificationsEnabled: true
+        ShowInLockScreen: false
+        ShowInNotificationCenter: true
+        AlertType: 2          # 0 none, 1 banner, 2 alert
+        BadgesEnabled: true
+        SoundsEnabled: true
+      - BundleIdentifier: com.microsoft.autoupdate2
+        NotificationsEnabled: true
+        ShowInNotificationCenter: true
+        AlertType: 1

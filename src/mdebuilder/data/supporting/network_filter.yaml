@@ -1,0 +1,18 @@
+name: Microsoft Defender Network Filter
+description: >-
+  Configures the socket content filter provided by Defender's network extension,
+  used for EDR socket inspection and Network Protection.
+# Verify against: https://learn.microsoft.com/en-us/defender-endpoint/mac-sysext-policies
+payloads:
+  - PayloadType: com.apple.webcontent-filter
+    PayloadDisplayName: Microsoft Defender Network Filter
+    FilterType: Plugin
+    UserDefinedName: Microsoft Defender Network Protection
+    PluginBundleID: com.microsoft.wdav
+    FilterSockets: true
+    FilterDataProviderBundleIdentifier: com.microsoft.wdav.netext
+    FilterDataProviderDesignatedRequirement: >-
+      identifier "com.microsoft.wdav.netext" and anchor apple generic and
+      certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and
+      certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and
+      certificate leaf[subject.OU] = UBF8T346G9

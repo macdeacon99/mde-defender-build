@@ -1,0 +1,13 @@
+name: Microsoft Defender System Extensions
+description: >-
+  Allow-lists Defender's Endpoint Security and Network system extensions so they
+  load without user approval. Required on macOS 11+ (Big Sur and later).
+# Verify against: https://learn.microsoft.com/en-us/defender-endpoint/mac-sysext-policies
+payloads:
+  - PayloadType: com.apple.system-extension-policy
+    PayloadDisplayName: System Extension Policy
+    AllowUserOverrides: true
+    AllowedSystemExtensions:
+      UBF8T346G9:
+        - com.microsoft.wdav.epsext   # Endpoint Security extension
+        - com.microsoft.wdav.netext   # Network / content-filter extension

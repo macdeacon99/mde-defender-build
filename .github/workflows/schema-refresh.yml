@@ -1,0 +1,41 @@
+name: Refresh Defender schema
+
+# Keeps src/mdebuilder/data/schema.json in sync with Microsoft's published
+# schema. Runs weekly; opens a reviewable PR only when the schema has changed,
+# so new or altered Defender settings surface through normal code review.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Refresh schema from Microsoft
+        run: mde-builder --refresh-schema
+      - name: Open PR if the schema changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: refresh Microsoft Defender macOS schema"
+          title: "chore: refresh Defender macOS schema"
+          body: |
+            Automated refresh of `src/mdebuilder/data/schema.json` from
+            [microsoft/mdatp-xplat](https://github.com/microsoft/mdatp-xplat).
+
+            Review the diff for any new, removed, or changed Defender settings
+            before merging. If new sections appear, consider adding coverage in
+            `tests/test_schema.py`.
+          branch: chore/refresh-schema
+          delete-branch: true
+          add-paths: src/mdebuilder/data/schema.json

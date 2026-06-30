@@ -1,0 +1,10 @@
+name: Microsoft Defender Background Services
+description: >-
+  Allow-lists Defender's managed login items / background services by Team ID so
+  they are permitted to run at login on macOS Ventura (13) and later.
+payloads:
+  - PayloadType: com.apple.servicemanagement
+    PayloadDisplayName: Managed Login Items
+    Rules:
+      - RuleType: TeamIdentifier
+        RuleValue: UBF8T346G9

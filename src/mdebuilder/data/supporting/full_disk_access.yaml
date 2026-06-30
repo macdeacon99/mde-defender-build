@@ -1,0 +1,36 @@
+name: Microsoft Defender Full Disk Access
+description: >-
+  Grants Full Disk Access (SystemPolicyAllFiles) to Defender and its Endpoint
+  Security extension via PPPC/TCC, so the AV and EDR engines can read protected
+  paths without a user prompt.
+# Verify against: https://learn.microsoft.com/en-us/defender-endpoint/mac-sysext-policies
+payloads:
+  - PayloadType: com.apple.TCC.configuration-profile-policy
+    PayloadDisplayName: Privacy Preferences Policy Control
+    Services:
+      SystemPolicyAllFiles:
+        - Identifier: com.microsoft.wdav.epsext
+          IdentifierType: bundleID
+          Authorization: Allow
+          CodeRequirement: >-
+            identifier "com.microsoft.wdav.epsext" and anchor apple generic and
+            certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and
+            certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and
+            certificate leaf[subject.OU] = UBF8T346G9
+        - Identifier: com.microsoft.wdav
+          IdentifierType: bundleID
+          Authorization: Allow
+          CodeRequirement: >-
+            identifier "com.microsoft.wdav" and anchor apple generic and
+            certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and
+            certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and
+            certificate leaf[subject.OU] = UBF8T346G9
+        # Required for Device Control / DLP (com.microsoft.dlp.daemon)
+        - Identifier: com.microsoft.dlp.daemon
+          IdentifierType: bundleID
+          Authorization: Allow
+          CodeRequirement: >-
+            identifier "com.microsoft.dlp.daemon" and anchor apple generic and
+            certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and
+            certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and
+            certificate leaf[subject.OU] = UBF8T346G9

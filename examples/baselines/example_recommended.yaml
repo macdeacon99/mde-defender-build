@@ -1,0 +1,28 @@
+metadata:
+  name: Hardened recommended baseline
+  description: >-
+    Sensible hardened starting point for Microsoft Defender for Endpoint on
+    managed macOS. Review every value before production deployment.
+  schema_version: "101.25102.0001"
+  organisation: Example Org
+  identifier_prefix: com.example.mde
+wdav_settings:
+  antivirusEngine.enableRealTimeProtection: true
+  antivirusEngine.enforcementLevel: real_time
+  antivirusEngine.scanArchives: true
+  antivirusEngine.scanAfterDefinitionUpdate: true
+  cloudService.enabled: true
+  cloudService.automaticSampleSubmissionConsent: safe
+  cloudService.automaticDefinitionUpdateEnabled: true
+  cloudService.diagnosticLevel: optional
+  features.behaviorMonitoring: enabled
+  features.dataLossPrevention: disabled
+  tamperProtection.enforcementLevel: block
+  networkProtection.enforcementLevel: block
+  userInterface.hideStatusMenuIcon: false
+supporting_profiles:
+  - system_extensions
+  - network_filter
+  - full_disk_access
+  - notifications
+  - background_services

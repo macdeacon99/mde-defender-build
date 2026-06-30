@@ -1,0 +1,69 @@
+metadata:
+  name: Hardened + Device Control
+  description: Sensible hardened starting point for Microsoft Defender for Endpoint
+    on managed macOS. Review every value before production deployment.
+  schema_version: 101.25102.0001
+  organisation: Example Org
+  identifier_prefix: com.example.mde
+wdav_settings:
+  antivirusEngine.enableRealTimeProtection: true
+  antivirusEngine.enforcementLevel: real_time
+  antivirusEngine.scanArchives: true
+  antivirusEngine.scanAfterDefinitionUpdate: true
+  cloudService.enabled: true
+  cloudService.automaticSampleSubmissionConsent: safe
+  cloudService.automaticDefinitionUpdateEnabled: true
+  cloudService.diagnosticLevel: optional
+  features.behaviorMonitoring: enabled
+  features.dataLossPrevention: disabled
+  tamperProtection.enforcementLevel: block
+  networkProtection.enforcementLevel: block
+  userInterface.hideStatusMenuIcon: false
+supporting_profiles:
+- system_extensions
+- network_filter
+- full_disk_access
+- notifications
+- background_services
+device_control:
+  settings:
+    features:
+      removableMedia:
+        disable: false
+    global:
+      defaultEnforcement: allow
+    ux:
+      navigationTarget: https://intranet.example/usb-policy
+  groups:
+  - $type: device
+    id: e4eed451-b2e3-4153-8d65-51f187913bff
+    name: All removable media
+    query:
+      $type: all
+      clauses:
+      - $type: primaryId
+        value: removable_media_devices
+  - $type: device
+    id: 406dad02-89e5-4600-a499-0e71f98ed62e
+    name: Approved removable media
+    query:
+      $type: all
+      clauses:
+      - $type: vendorId
+        value: 0951
+  rules:
+  - id: ade61437-14f6-403b-a621-287fe04d1bab
+    name: Block removable media except approved
+    includeGroups:
+    - e4eed451-b2e3-4153-8d65-51f187913bff
+    entries:
+    - $type: generic
+      id: f8de1548-df79-4363-84d0-88b51c52b38c
+      enforcement:
+        $type: deny
+      access:
+      - generic_read
+      - generic_write
+      - generic_execute
+    excludeGroups:
+    - 406dad02-89e5-4600-a499-0e71f98ed62e

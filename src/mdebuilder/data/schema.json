@@ -1,0 +1,1014 @@
+{
+    "__feedback": "jmanifest@microsoft.com",
+    "__version": "101.25102.0001",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "com.microsoft.wdav",
+    "description": "Preference Domain: com.microsoft.wdav, Application: Defender",
+    "options": {
+        "remove_empty_properties": true
+    },
+    "type": "object",
+    "properties": {
+        "antivirusEngine": {
+            "title": "Antivirus engine",
+            "description": "Properties displayed below will be managed, a user would not be able to override them",
+            "propertyOrder": 10,
+            "defaultProperties": [],
+            "properties": {
+                "enforcementLevel": {
+                    "title": "Enforcement level",
+                    "default": "real_time",
+                    "type": "string",
+                    "propertyOrder": 5,
+                    "description": "Antivirus engine enforcement mode",
+                    "enum": ["passive", "on_demand", "real_time"],
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-preferences#enforcement-level-for-antivirus-engine",
+                            "rel": "More information"
+                        }
+                    ]
+                },
+                "enableRealTimeProtection": {
+                    "default": true,
+                    "description": "Locates and stops malware from installing or running on your device. You can turn off this setting for a short time before it turns back on automatically.",
+                    "format": "checkbox",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#enable--disable-real-time-protection",
+                            "rel": "More information"
+                        }
+                    ],
+                    "options": {
+                        "infoText": "Key: enableRealTimeProtection"
+                    },
+                    "propertyOrder": 10,
+                    "title": "Real-time protection",
+                    "type": "boolean"
+                },
+                "exclusions": {
+                    "description": "Entities that have been excluded from the scan. Exclusions can be specified by full paths, extensions, or file names.",
+                    "items": {
+                        "format": "grid",
+                        "properties": {
+                            "$type": {
+                                "default": "excludedPath",
+                                "enum": [
+                                    "excludedPath",
+                                    "excludedFileExtension",
+                                    "excludedFileName"
+                                ],
+                                "options": {
+                                    "enum_titles": [
+                                        "Path",
+                                        "File extension",
+                                        "Process name"
+                                ]},
+                                "title": "Type",
+                                "type": "string"
+                            },
+                            "extension": {
+                                "options": {
+                                    "dependencies": {
+                                        "$type": "excludedFileExtension"
+                                    }
+                                },
+                                "title": "File extension",
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "isDirectory": {
+                                "default": "true",
+                                "format": "checkbox",
+                                "options": {
+                                    "dependencies": {
+                                        "$type": "excludedPath"
+                                    }
+                                },
+                                "title": "Is directory",
+                                "description": "Directory if selected, or file if not selected",
+                                "type": "boolean"
+                            },
+                            "name": {
+                                "options": {
+                                    "dependencies": {
+                                        "$type": "excludedFileName"
+                                    }
+                                },
+                                "title": "Process name",
+                                "description": "Process name, either or full path or file name, wildcards supported",
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "path": {
+                                "options": {
+                                    "dependencies": {
+                                        "$type": "excludedPath"
+                                    }
+                                },
+                                "title": "Path",
+                                "description": "Path to exclude, wildcards are supported",
+                                "type": "string",
+                                "minLength": 1
+                            }
+                        },
+                        "title": "Exclusions",
+                        "type": "object"
+                    },
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#scan-exclusions",
+                            "rel": "More information"
+                        }
+                    ],
+                    "options": {
+                        "infoText": "Key: exclusions"
+                    },
+                    "propertyOrder": 30,
+                    "title": "Scan exclusions",
+                    "type": "array"
+                },
+                "passiveMode": {
+                    "default": false,
+                    "description": "Whether the antivirus engine runs in passive mode or not.",
+                    "format": "checkbox",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#enable--disable-passive-mode",
+                            "rel": "More information"
+                        }
+                    ],
+                    "options": {
+                        "infoText": "Key: passiveMode"
+                    },
+                    "propertyOrder": 40,
+                    "title": "Passive mode",
+                    "type": "boolean"
+                },
+                "allowedThreats": {
+                    "type": "array",
+                    "description": "List of threats (identified by their name) that are not blocked by the product and are instead allowed to run.",
+                    "propertyOrder": 50,
+                    "title": "Allowed threats",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#allowed-threats",
+                            "rel": "More information"
+                        }
+                    ],
+                    "items": {
+                        "title": "Threat",
+                        "format": "grid",
+                        "type": "string"
+                    }
+                },
+                "threatTypeSettings": {
+                    "type": "array",
+                    "description": "The threatTypeSettings preference in the antivirus engine is used to control how certain threat types are handled by the product.",
+                    "propertyOrder": 60,
+                    "title": "Threat type settings",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#threat-type-settings",
+                            "rel": "More information"
+                        }
+                    ],
+                    "items": {
+                        "title": "Setting",
+                        "format": "grid",
+                        "type": "object",
+                        "properties": {
+                            "key": {
+                                "type": "string",
+                                "title": "Threat type",
+                                "description": "Type of the threat for which the behavior is configured.",
+                                "propertyOrder": 10,
+                                "enum": ["potentially_unwanted_application", "archive_bomb"]
+                            },
+                            "value": {
+                                "type": "string",
+                                "title": "Action to take",
+                                "description": "Action to take when coming across a threat of the type specified in the preceding section.",
+                                "propertyOrder": 20,
+                                "default": "audit",
+                                "enum": ["audit", "block", "off"]
+                            }
+                        }
+                    }
+                },
+                "exclusionsMergePolicy": {
+                    "default": "merge",
+                    "title": "Exclusions merge",
+                    "type": "string",
+                    "propertyOrder": 70,
+                    "description": "Specify the merge policy for exclusions. This can be a combination of administrator-defined and user-defined exclusions (merge) or only administrator-defined exclusions (admin_only). This setting can be used to restrict local users from defining their own exclusions.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#exclusion-merge-policy",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["merge", "admin_only"]
+                },
+                "disallowedThreatActions": {
+                    "type": "array",
+                    "description": "Restricts the actions that the local user of a device can take when threats are detected. The actions included in this list are not displayed in the user interface. Use unique values.",
+                    "propertyOrder": 80,
+                    "title": "Disallowed threat actions",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#disallowed-threat-actions",
+                            "rel": "More information"
+                        }
+                    ],
+                    "items": {
+                        "title": "Action",
+                        "format": "grid",
+                        "type": "string",
+                        "enum": ["allow", "restore"]
+                    }
+                },
+                "threatTypeSettingsMergePolicy": {
+                    "default": "merge",
+                    "title": "Threat type settings merge",
+                    "type": "string",
+                    "propertyOrder": 90,
+                    "description": "Specify the merge policy for threat type settings. This can be a combination of administrator-defined and user-defined settings (merge) or only administrator-defined settings (admin_only). This setting can be used to restrict local users from defining their own settings for different threat types.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#threat-type-settings-merge-policy",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["merge", "admin_only"]
+                },
+                "scanResultsRetentionDays": {
+                    "default": 90,
+                    "title": "Scan results retention",
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 180,
+                    "propertyOrder": 100,
+                    "description": "Specify the number of days that results are retained in the scan history on the device. Old scan results are removed from the history. Old quarantined files that are also removed from the disk.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#antivirus-scan-history-retention-in-days",
+                            "rel": "More information"
+                        }
+                    ]
+                },
+                "scanHistoryMaximumItems": {
+                    "default": 10000,
+                    "title": "Scan history size",
+                    "type": "number",
+                    "minimum": 5000,
+                    "maximum": 15000,
+                    "propertyOrder": 110,
+                    "description": "Specify the maximum number of entries to keep in the scan history. Entries include all on-demand scans performed in the past and all antivirus detections.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#maximum-number-of-items-in-the-antivirus-scan-history",
+                            "rel": "More information"
+                        }
+                    ]
+                },
+                "scanAfterDefinitionUpdate": {
+                    "default": true,
+                    "title": "Run a scan after definitions are updated",
+                    "type": "boolean",
+                    "propertyOrder": 120,
+                    "description": "Specifies whether to start a process scan after new security intelligence updates are downloaded on the device. Enabling this setting will trigger an antivirus scan on the running processes of the device.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-preferences?view=o365-worldwide#run-a-scan-after-definitions-are-updated",
+                            "rel": "More information"
+                        }
+                    ]
+                },
+                "maximumOnDemandScanThreads": {
+                    "default": 2,
+                    "title": "Degree of parallelism for on-demand scans",
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "propertyOrder": 130,
+                    "description": "Specifies the degree of parallelism for on-demand scans. This corresponds to the number of threads used to perform the scan and impacts the CPU usage, as well as the duration of the on-demand scan.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-preferences?view=o365-worldwide#degree-of-parallelism-for-on-demand-scans",
+                            "rel": "More information"
+                        }
+                    ]
+                },
+                "scanArchives": {
+                    "default": true,
+                    "title": "Scanning inside archive files",
+                    "type": "boolean",
+                    "propertyOrder": 140,
+                    "description": "If true, Defender will unpack archives and scan files inside them. Otherwise archive content will be skipped, that will improve scanning performance.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-preferences?view=o365-worldwide#scan-archives-on-demand-antivirus-scans-only",
+                            "rel": "More information"
+                        }
+                    ]
+                },
+                "enableFileHashComputation": {
+                    "default": false,
+                    "title": "Enable file hash computation",
+                    "type": "boolean",
+                    "propertyOrder": 150,
+                    "description": "Enables or disables file hash computation feature. When this feature is enabled Defender will compute hashes for files it scans. This will help in improving the accuracy of Custom Indicator matches. However, enabling EnableFileHashComputation may impact device performance.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-preferences?view=o365-worldwide#configure-file-hash-computation-feature",
+                            "rel": "More information"
+                        }
+                    ]
+                },
+                "offlineDefinitionUpdate": {
+                    "default": "disabled",
+                    "title": "Enable offline security intelligence updates",
+                    "type": "string",
+                    "propertyOrder": 160,
+                    "description": "Enables or disables offline security intelligence updates feature. When this feature is enabled Defender will use a local mirror server to update the signatures.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-support-offline-security-intelligence-update",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["enabled", "disabled"]                    
+                },
+                "offlineDefinitionUpdateUrl": {
+                    "title": "URL for a security intelligence updates mirror server",
+                    "type": "string",
+                    "propertyOrder": 170,
+                    "description": "Sets the URL for a local offline security intelligence updates mirror server. When the feature is enabled Defender will use it to update the signatures.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-support-offline-security-intelligence-update#configure-the-endpoints",
+                            "rel": "More information"
+                        }
+                    ]
+                },
+                "offlineDefinitionUpdateFallbackToCloud": {
+                    "default": true,
+                    "title": "Fallback to Microsoft cloud updates",
+                    "description": "Determine the Defender for Endpoint security intelligence update approach when offline mirror server fails to serve the update request. If set to true, the update is retried via the Microsoft cloud when offline security intelligence update failed.",
+                    "format": "checkbox",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-support-offline-security-intelligence-update#configure-the-endpoints",
+                            "rel": "More information"
+                        }
+                    ],
+                    "propertyOrder": 180,
+                    "type": "boolean"
+                }
+            }
+        },
+        "cloudService": {
+            "title": "Cloud delivered protection preferences",
+            "propertyOrder": 20,
+            "defaultProperties": [],
+            "properties": {
+                "enabled": {
+                    "default": true,
+                    "description": "Provides increased, faster protection with access to the latest protection data in the cloud. Works best with automatic sample submission turned on",
+                    "format": "checkbox",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#enable--disable-cloud-delivered-protection",
+                            "rel": "More information"
+                        }
+                    ],
+                    "propertyOrder": 10,
+                    "title": "Cloud delivered protection",
+                    "type": "boolean"
+                },
+                "diagnosticLevel": {
+                    "default": "optional",
+                    "title": "Diagnostic data collection",
+                    "type": "string",
+                    "propertyOrder": 20,
+                    "description": "We encourage you to share your diagnostic and usage data with us to help improve Microsoft products and services.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#diagnostic-collection-level",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["optional", "required"]
+                },
+                "automaticSampleSubmissionConsent": {
+                    "default": "safe",
+                    "title": "Automatic sample submission Consent",
+                    "type": "string",
+                    "propertyOrder": 30,
+                    "description": "Sends sample files to Microsoft to help protect device users and your organization from potential threats",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#enable--disable-automatic-sample-submissions",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["none", "safe", "all"]
+                },
+                "automaticDefinitionUpdateEnabled": {
+                    "default": true,
+                    "title": "Automatic security intelligence updates",
+                    "description": "Determines whether security intelligence updates are installed automatically:",
+                    "format": "checkbox",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#enable--disable-automatic-security-intelligence-updates",
+                            "rel": "More information"
+                        }
+                    ],
+                    "propertyOrder": 40,
+                    "type": "boolean"
+                },
+                "cloudBlockLevel": {
+                    "default": "normal",
+                    "title": "Cloud Block Level",
+                    "type": "string",
+                    "propertyOrder": 50,
+                    "description": "Determines how aggressive Defender for Endpoint will be in blocking and scanning suspicious files.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-preferences?view=o365-worldwide#configure-cloud-block-level",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["normal", "moderate", "high", "high_plus", "zero_tolerance"]
+                },
+                 "definitionUpdateDue": {
+                    "title": "Security intelligence update due (in days)",
+                    "type": "number",
+                    "propertyOrder": 60,
+                    "description": "Determines the number of days after which the last installed security intelligence updates are considered outdated.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-preferences#duration-for-security-intelligence-updates-due-in-days",
+                            "rel": "More information"
+                        }
+                    ],
+                    "default": 7,
+                    "minimum": 1,
+                    "maximum": 30
+                },
+                "definitionUpdatesInterval": {
+                    "title": "Security intelligence update interval (in seconds)",
+                    "type": "number",
+                    "propertyOrder": 70,
+                    "description": "Specifies the time interval (in seconds) after which security intelligence updates will be checked.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-preferences#security-intelligence-update-interval-in-seconds", 
+                            "rel": "More information"
+                        }
+                    ],
+                    "default": 28800,
+                    "minimum": 60,
+                    "maximum": 86400
+                },
+                "proxy": {
+                    "title": "Set proxy for MDE communication",
+                    "type": "string",
+                    "propertyOrder": 80,
+                    "description": "Configure proxy for all MDE cloud communication. If not set, the system-wide proxy is used.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-preferences#proxy-for-defender-for-endpoint-communication", 
+                            "rel": "More information"
+                        }
+                    ]
+                }
+            }
+        },
+        "userInterface": {
+            "title": "User interface preferences",
+            "propertyOrder": 30,
+            "defaultProperties": [],
+            "properties": {
+                "hideStatusMenuIcon": {
+                    "default": false,
+                    "description": "Whether the status menu icon (shown in the top-right corner of the screen) is hidden or not.",
+                    "format": "checkbox",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#show--hide-status-menu-icon",
+                            "rel": "More information"
+                        }
+                    ],
+                    "propertyOrder": 10,
+                    "title": "Hide status menu icon",
+                    "type": "boolean"                    
+                },
+                "userInitiatedFeedback": {
+                    "default": "enabled",
+                    "title": "User initiated feedback",
+                    "type": "string",
+                    "propertyOrder": 20,
+                    "description": "Specify whether users can submit feedback to Microsoft by going to Help > Send Feedback.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#diagnostic-collection-level",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["enabled", "disabled"]
+                },
+                "consumerExperience": {
+                    "default": "enabled",
+                    "title": "Control sign-in to consumer version",
+                    "type": "string",
+                    "propertyOrder": 30,
+                    "description": "Specify whether users can sign into the consumer version of Microsoft Defender",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#control-sign-in-to-consumer-version-of-microsoft-defender",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["enabled", "disabled"]
+                }
+            }
+        },
+        "edr": {
+            "title": "EDR preferences",
+            "propertyOrder": 40,
+            "defaultProperties": [],
+            "properties": {
+                "tags": {
+                    "title": "Device tags",
+                    "type": "array",
+                    "maxItems": 1,
+                    "propertyOrder": 20,
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#device-tags",
+                            "rel": "More information"
+                        }
+                    ],
+                    "items": {
+                        "title": "Tag",
+                        "format": "grid",
+                        "type": "object",
+                        "properties": {
+                            "key": {
+                                "type": "string",
+                                "title": "Type of tag",
+                                "propertyOrder": 10,
+                                "enum": ["GROUP"]
+                            },
+                            "value": {
+                                "type": "string",
+                                "title": "Value of tag",
+                                "propertyOrder": 20
+                            }
+                        }
+                    }
+                },
+                "groupIds": {
+                    "title": "Group identifier",
+                    "type": "string",
+                    "propertyOrder": 30,
+                    "description": "",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/mac-preferences#group-identifiers",
+                            "rel": "More information"
+                        }
+                    ]
+                }
+            }
+        },
+        "features": {
+            "title": "Features",
+            "propertyOrder": 50,
+            "defaultProperties": [],
+            "properties": {
+                "dataLossPrevention": {
+                    "default": "disabled",
+                    "title": "Use Data Loss Prevention",
+                    "type": "string",
+                    "propertyOrder": 20,
+                    "description": "Whether data loss prevention enforcement is enabled on the machine.",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/microsoft-365/compliance/data-loss-prevention-policies?view=o365-worldwide",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["enabled", "disabled"]                
+                },
+                "scheduledScan":{
+                    "default": "enabled",
+                    "title": "Scheduled Scan",
+                    "type": "string",
+                    "propertyOrder": 30,
+                    "description": "Schedule scans with Microsoft Defender for Endpoint.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-schedule-scan",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["enabled", "disabled"]   
+                },
+                "behaviorMonitoring": {
+                    "default": "disabled",
+                    "title": "Behavior Monitoring",
+                    "type": "string",
+                    "propertyOrder": 40,
+                    "description": "Behavior Monitoring detections with Microsoft Defender for Endpoint.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/behavior-monitor-macos",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["enabled", "disabled"]
+                },
+                "offlineDefinitionUpdateVerifySig": {
+                    "default": "enabled",
+                    "title": "offline security intelligence updates signature verification",
+                    "type": "string",
+                    "propertyOrder": 60,
+                    "description": "Offline security intelligence updates signature verification with Microsoft Defender for Endpoint. It is recommended to keep this setting enabled when offline updates are enabled.",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-support-offline-security-intelligence-update",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["enabled", "disabled"]
+                }
+            }
+        },
+        "tamperProtection": {
+            "title": "Tamper protection",
+            "propertyOrder": 60,
+            "defaultProperties": [],
+            "links": [
+                {
+                    "href": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/tamperprotection-macos",
+                    "rel": "Feature documentation"
+                }
+            ],
+            "properties": {
+                "enforcementLevel": {
+                    "title": "Enforcement level",
+                    "default": "block",
+                    "type": "string",
+                    "propertyOrder": 10,
+                    "description": "Specifies if tamper protection is disabled, in audit mode, or enforced",
+                    "enum": ["disabled", "audit", "block"]
+                },
+                "exclusions": {
+                    "title": "Process exclusions",
+                    "type": "array",
+                    "propertyOrder": 20,
+                    "description": "Defines process that can interfere with Defender without considering it tampering",
+                    "items": {
+                        "title": "Process identity",
+                        "type": "object",
+                        "format": "grid",
+                        "links": [
+                            {
+                                "href": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/tamperprotection-macos#exclusions",
+                                "rel": "Tamper Protection exclusions"
+                            }
+                        ],
+                        "properties":  {
+                            "path": {
+                                "title": "Process path",
+                                "type": "string",
+                                "propertyOrder": 10,
+                                "description": "Full and exact path to the process binary"
+                            },
+                            "teamId": {
+                                "title": "Process's TeamIdentifier",
+                                "type": "string",
+                                "propertyOrder": 20,
+                                "description": "Code signature TeamIdentifier"
+                            },
+                            "signingId": {
+                                "title": "Process's Signing Identifier",
+                                "type": "string",
+                                "propertyOrder": 30,
+                                "description": "Code signature Identifier"
+                            },
+                            "args": {
+                                "title": "Process's arguments",
+                                "type": "array",
+                                "propertyOrder": 40,
+                                "description": "Command line arguments",
+                                "items": {
+                                    "title": "Argument",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "deviceControl": {
+            "title": "Device Control",
+            "propertyOrder": 70,
+            "defaultProperties": [],
+            "properties": {
+                "policy": {
+                    "title": "Device Control Policy",
+                    "type": "string",
+                    "propertyOrder": 10,
+                    "description": "JSON string representing the device control policy",
+                    "links": [
+                        {
+                            "href": "https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-device-control-overview?view=o365-worldwide",
+                            "rel": "More information"
+                        },
+                        {
+                            "href": "https://github.com/microsoft/mdatp-devicecontrol/blob/main/Removable%20Storage%20Access%20Control%20Samples/macOS/policy/device_control_policy_schema.json",
+                            "rel": "Schema"
+                        }
+                    ]
+                }
+            }
+        },
+        "networkProtection": {
+            "title": "Network protection",
+            "propertyOrder": 80,
+            "defaultProperties": [],
+            "properties": {
+                "enforcementLevel": {
+                    "default": "audit",
+                    "description": "Specifies if network protection is disabled, in audit mode, or enforced",
+                    "enum": ["disabled", "audit", "block"],
+                    "propertyOrder": 10,
+                    "title": "Enforcement level",
+                    "type": "string"
+                },
+                "disableDnsOverTcpParsing": {
+                    "default": false,
+                    "description": "Disables parsing of DNS over TCP",
+                    "propertyOrder": 20,
+                    "title": "Disable DNS over TCP parsing",
+                    "type": "boolean"
+                },
+                "disableDnsParsing": {
+                    "default": false,
+                    "description": "Disables parsing of DNS traffic",
+                    "propertyOrder": 30,
+                    "title": "Disable DNS parsing",
+                    "type": "boolean"
+                },
+                "disableFtpParsing": {
+                    "default": false,
+                    "description": "Disables parsing of FTP traffic",
+                    "propertyOrder": 40,
+                    "title": "Disable FTP parsing",
+                    "type": "boolean"
+                },
+                "disableHttpParsing": {
+                    "default": false,
+                    "description": "Disables parsing of HTTP traffic",
+                    "propertyOrder": 50,
+                    "title": "Disable HTTP parsing",
+                    "type": "boolean"
+                },
+                "disableIcmpParsing": {
+                    "default": false,
+                    "description": "Disables parsing of ICMP traffic",
+                    "propertyOrder": 60,
+                    "title": "Disable ICMP parsing",
+                    "type": "boolean"
+                },
+                "disableInboundConnectionFiltering": {
+                    "default": false,
+                    "description": "Disables filtering of inbound connections",
+                    "propertyOrder": 70,
+                    "title": "Disable inbound connection filtering",
+                    "type": "boolean"
+                },
+                "disableRdpParsing": {
+                    "default": false,
+                    "description": "Disables parsing of RDP traffic",
+                    "propertyOrder": 80,
+                    "title": "Disable RDP parsing",
+                    "type": "boolean"
+                },
+                "disableSmtpParsing": {
+                    "default": false,
+                    "description": "Disables parsing of SMTP traffic",
+                    "propertyOrder": 90,
+                    "title": "Disable SMTP parsing",
+                    "type": "boolean"
+                },
+                "disableSshParsing": {
+                    "default": false,
+                    "description": "Disables parsing of SSH traffic",
+                    "propertyOrder": 100,
+                    "title": "Disable SSH parsing",
+                    "type": "boolean"
+                },
+                "disableTlsParsing": {
+                    "default": false,
+                    "description": "Disables parsing of TLS traffic",
+                    "propertyOrder": 110,
+                    "title": "Disable TLS parsing",
+                    "type": "boolean"
+                },
+                "enableSetWarnToBlock": {
+                    "default": false,
+                    "description": "Converts warn determinations into blocks",
+                    "propertyOrder": 120,
+                    "title": "Enable set warn to block",
+                    "type": "boolean"
+                }
+            }
+        },
+        "dlp": {
+            "title": "Data Loss Prevention",
+            "propertyOrder": 90,
+            "defaultProperties": [],
+            "properties": {
+                "exclusions": {
+                    "title": "Exclusions",
+                    "propertyOrder": 10,
+                    "type": "array",
+                    "items": {
+                        "title": "Exclusion",
+                        "format": "grid",
+                        "type": "object",
+                        "defaultProperties": ["signingId", "flag"],
+                        "required": ["signingId", "flag"],
+                        "properties": {
+                            "signingId": {
+                                "title": "Signing ID",
+                                "description": "The signing id of the application to exclude from data loss prevention.",
+                                "propertyOrder": 10,
+                                "type": "string"
+                            },
+                            "flag": {
+                                "title": "Flag",
+                                "description": "Bit flags to control the type of exclusion(s) to apply.  EPS=0x1, AX=0x2.",
+                                "propertyOrder": 20,
+                                "type": "number"
+                            }
+                        }
+                    }
+                },
+                "features": {
+                    "title": "Features",
+                    "propertyOrder": 20,
+                    "type": "array",
+                    "items": {
+                        "title": "Feature",
+                        "format": "grid",
+                        "type": "object",
+                        "defaultProperties": ["name", "state"],
+                        "required": ["name", "state"],
+                        "properties": {
+                            "name": {
+                                "title": "Feature Name",
+                                "description": "The name of a DLP feature to enable or disable.",
+                                "propertyOrder": 10,
+                                "type": "string"
+                            },
+                            "state": {
+                                "title": "State",
+                                "description": "Enable a feature up to a deployment ring (default production), or force disable a feature for all rings.",
+                                "propertyOrder": 20,
+                                "type": "string",
+                                "default": "enabled",
+                                "enum": ["enabled", "disabled"]
+                            },
+                            "ring": {
+                                "title": "Release Ring",
+                                "description": "Limit enabling the feature to a specific deployment ring.",
+                                "propertyOrder": 30,
+                                "type": "string",
+                                "default": "production",
+                                "enum": ["insiderFast", "external", "production"]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "scheduledScan": {
+            "title": "Scheduled scan configuration",
+            "propertyOrder": 100,
+            "defaultProperties": [],
+            "links": [
+                {
+                    "href": "https://learn.microsoft.com/en-us/defender-endpoint/mac-schedule-scan",
+                    "rel": "More information"
+                }
+            ],
+            "properties": {
+                "checkForDefinitionsUpdate": {
+                    "title": "Check for definitions update",
+                    "description": "Check for definitions update before initiating a scheduled scan",
+                    "propertyOrder": 10,
+                    "type": "boolean",
+                    "default": false
+                },
+                "dailyConfiguration": {
+                    "title": "Daily and Hourly quick scan configuration",
+                    "description": "Check for definitions update before initiating a scheduled scan",
+                    "propertyOrder": 20,
+                    "type": "object",
+                    "properties": {
+                        "timeOfDay": {
+                            "title": "Time of day",
+                            "description": "Specifies the time of day, as the number of minutes after midnight, to perform a daily quick scan.",
+                            "propertyOrder": 10,
+                            "type": "number",
+                            "default": 0,
+                            "minimum": 0,
+                            "maximum": 1440
+                        },
+                        "interval": {
+                            "title": "Start time",
+                            "description": "Specify how many hours should elapse before the next hourly quick scan. 0 indicates no hourly quick scan. 1 indicates a scan every hour. 24 indicates a scan once a day.",
+                            "propertyOrder": 20,
+                            "type": "number",
+                            "default": 0,
+                            "minimum": 0,
+                            "maximum": 24
+                        }
+                    }
+                },
+                "ignoreExclusions": {
+                    "title": "Ignore exclusions",
+                    "description": "Should exclusions be ignored during a scheduled scan",
+                    "propertyOrder": 30,
+                    "type": "boolean",
+                    "default": false
+                },
+                "lowPriorityScheduledScan":{
+                    "title": "Low priority scheduled scan",
+                    "description": "Should scheduled scan be run with low priority. (Scan might take longer to complete).",
+                    "propertyOrder": 40,
+                    "type": "boolean",
+                    "default": false
+                },
+                "randomizeScanStartTime":{
+                    "title": "Randomize scheduled scan start time",
+                    "description": "Randomize the start time of a daily and weekly scheduled scan to any interval from 0 to 23 hours.",
+                    "propertyOrder": 50,
+                    "type": "number",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 23
+                },
+                "runScanWhenIdle":{
+                    "title": "Run scheduled scan when idle",
+                    "description": "Run scheduled scan when the device is idle. Only applicable for weekly full scans.",
+                    "propertyOrder": 60,
+                    "type": "boolean",
+                    "default": false
+                },
+                "weeklyConfiguration":{
+                    "title": "Weekly scheduled scan configuration",
+                    "description": "Should scheduled scan be run with low priority. (Scan might take longer to complete).",
+                    "propertyOrder": 70,
+                    "type": "object",
+                    "properties": {
+                        "scanType": {
+                            "title": "Scan type",
+                            "description": "Specifies the type of scan to perform.",
+                            "propertyOrder": 10,
+                            "type": "string",
+                            "default": "quick",
+                            "enum": ["quick", "full"]
+                        },
+                        "dayOfWeek": {
+                            "title": "Day of week",
+                            "description": "Specifies the day of the week to perform a weekly scan. 0 indicates never. 1-7 indicates Sunday - Saturday. 8 indicates every day.",
+                            "propertyOrder": 10,
+                            "type": "number",
+                            "default": 0,
+                            "minimum": 0,
+                            "maximum": 8
+                        },
+                        "timeOfDay": {
+                            "title": "Time of day",
+                            "description": "Specifies the time of day, as the number of minutes after midnight, to perform a weekly scan.",
+                            "propertyOrder": 20,
+                            "type": "number",
+                            "default": 0,
+                            "minimum": 0,
+                            "maximum": 1440
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
