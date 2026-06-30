@@ -9,6 +9,7 @@ PyYAML; the optional `tui` extra (`questionary`) adds an arrow-key UI.
 
 [![CI](https://github.com/your-org/mde-config-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/mde-config-builder/actions/workflows/ci.yml)
 
+
 ---
 
 ## Why it's built this way
