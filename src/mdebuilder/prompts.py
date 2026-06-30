@@ -13,7 +13,7 @@ try:  # pragma: no cover - presence depends on environment
 
     _HAVE_Q = True
 except Exception:  # noqa: BLE001
-    questionary = None  # type: ignore
+    questionary = None
     _HAVE_Q = False
 
 
