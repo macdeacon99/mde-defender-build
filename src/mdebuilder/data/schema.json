@@ -1,6 +1,6 @@
 {
     "__feedback": "jmanifest@microsoft.com",
-    "__version": "101.25102.0001",
+    "__version": "101.26072.0012",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "com.microsoft.wdav",
     "description": "Preference Domain: com.microsoft.wdav, Application: Defender",
@@ -645,6 +645,52 @@
                         }
                     ],
                     "enum": ["enabled", "disabled"]
+                },
+                "performanceProfiles": {
+                    "default": "disabled",
+                    "title": "Performance Profiles",
+                    "type": "string",
+                    "propertyOrder": 70,
+                    "description": "Performance profiles",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/performance-profiles", 
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["enabled", "disabled"]
+                }
+            }
+        },
+        "performanceProfiles": {
+            "title": "Performance Profiles Configuration",
+            "description": "Properties for configuring performance profiles",
+            "propertyOrder": 55,
+            "defaultProperties": [],
+            "properties": {
+                "profiles": {
+                    "title": "Performance Profiles",
+                    "type": "array",
+                    "propertyOrder": 10,
+                    "description": "Names of performance profiles to apply.",
+                    "items": {
+                        "title": "Profile name",
+                        "type": "string"
+                    }
+                },
+                "mergePolicy": {
+                    "default": "merge",
+                    "title": "Performance profiles merge policy",
+                    "type": "string",
+                    "propertyOrder": 20,
+                    "description": "Specify the merge policy for performance profiles. This can be a combination of administrator-defined and user-defined profiles (merge) or only administrator-defined profiles (admin_only).",
+                    "links": [
+                        {
+                            "href": "https://learn.microsoft.com/en-us/defender-endpoint/performance-profiles",
+                            "rel": "More information"
+                        }
+                    ],
+                    "enum": ["merge", "admin_only"]
                 }
             }
         },
@@ -894,6 +940,53 @@
                                 "type": "string",
                                 "default": "production",
                                 "enum": ["insiderFast", "external", "production"]
+                            }
+                        }
+                    }
+                },
+                "accessibility": {
+                    "title": "Accessibility",
+                    "description": "Configure how Data Loss Prevention behaves when macOS Accessibility permissions are unavailable or turned off.",
+                    "propertyOrder": 30,
+                    "type": "object",
+                    "defaultProperties": ["enforcement", "notification"],
+                    "properties": {
+                        "enforcement": {
+                            "title": "Enforcement",
+                            "propertyOrder": 10,
+                            "type": "object",
+                            "defaultProperties": ["unallowedBrowserMode", "pasteToBrowserMode"],
+                            "properties": {
+                                "unallowedBrowserMode": {
+                                    "title": "Restricted protection mode for cloud egress",
+                                    "description": "Controls whether uploading sensitive content to non-Edge browsers is enforced or audited when Accessibility is off.",
+                                    "propertyOrder": 10,
+                                    "type": "string",
+                                    "default": "enforce",
+                                    "enum": ["off", "audit", "enforce"]
+                                },
+                                "pasteToBrowserMode": {
+                                    "title": "Restricted protection mode for paste to browser",
+                                    "description": "Controls whether pasting sensitive content to non-Edge browsers is enforced or audited when Accessibility is off.",
+                                    "propertyOrder": 20,
+                                    "type": "string",
+                                    "default": "enforce",
+                                    "enum": ["off", "audit", "enforce"]
+                                }
+                            }
+                        },
+                        "notification": {
+                            "title": "Notification",
+                            "propertyOrder": 20,
+                            "type": "object",
+                            "defaultProperties": ["customMessage"],
+                            "properties": {
+                                "customMessage": {
+                                    "title": "Custom message",
+                                    "description": "Optional message shown to the users in addition to the default notification when Accessibility permissions are unavailable or turned off. Leave blank to use the default message.",
+                                    "propertyOrder": 10,
+                                    "type": "string"
+                                }
                             }
                         }
                     }
